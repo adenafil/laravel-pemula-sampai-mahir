@@ -71,3 +71,5 @@ Route::get('/produk-redirect/{id}', function ($id) {
         'id' => $id
     ]);
 });
+
+Route::get('/controller/hello/{name}', [\App\Http\Controllers\HelloController::class, 'hello']);
