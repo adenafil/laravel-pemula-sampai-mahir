@@ -37,3 +37,26 @@ Route::get('/hello-world', function () {
     return view("hello.world", ['name' => 'nafil']);
 });
 
+Route::get('/products/{id}', function ($productId) {
+    return "Product $productId";
+});
+
+Route::get('/products/{product}/items/{item}', function ($productId, $itemId) {
+    return "Product $productId, item $itemId";
+});
+
+Route::get('/categories/{id}', function ($categoryId) {
+    return "Category $categoryId";
+})->where('id', '[0-9]+');
+
+Route::get('/users/{id?}', function ($userId = "not found") {
+   return "User $userId";
+});
+
+Route::get('/conflict/ade', function () {
+    return "Conflict ade nafil firmansah";
+});
+
+Route::get('/conflict/{name}', function ($name) {
+    return "Conflict $name";
+});
