@@ -18,5 +18,6 @@ class VerifyCsrfToken extends Middleware
         "http://localhost:8000/input/hello/input",
         "http://localhost:8000/input/hello/array",
         'http://localhost:8000/input/type',
+        "http://localhost:8000/file/upload",
     ];
 }
