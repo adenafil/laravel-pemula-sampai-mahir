@@ -76,3 +76,9 @@ Route::get('/controller/hello/request', [\App\Http\Controllers\HelloController::
 
 Route::get('/controller/hello/{name}', [\App\Http\Controllers\HelloController::class, 'hello']);
 
+Route::get('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
+Route::post('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
+Route::post('/input/hello/first', [\App\Http\Controllers\InputController::class, 'helloFirstName']);
+Route::post('/input/hello/input', [\App\Http\Controllers\InputController::class, 'helloInput']);
+Route::post('/input/hello/array', [\App\Http\Controllers\InputController::class, 'helloArray']);
+

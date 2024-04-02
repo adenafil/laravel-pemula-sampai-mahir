@@ -13,5 +13,9 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        "http://localhost:8000/input/hello",
+        "http://localhost:8000/input/hello/first",
+        "http://localhost:8000/input/hello/input",
+        "http://localhost:8000/input/hello/array",
     ];
 }
