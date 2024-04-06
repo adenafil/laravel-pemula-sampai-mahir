@@ -6,6 +6,8 @@ use App\Services\UserServices;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertTrue;
 
 class UserServiceTest extends TestCase
 {
@@ -18,8 +20,18 @@ class UserServiceTest extends TestCase
         $this->userServices = $this->app->make(UserServices::class);
     }
 
-    public function testName()
+    public function testLoginSuccess()
     {
-        self::assertTrue(true);
+        assertTrue($this->userServices->login('ade', "rahasia"));
+    }
+
+    public function testLoginNotFound()
+    {
+        assertFalse($this->userServices->login('nafil', "ade"));
+    }
+
+    public function testLoginWrongPassword()
+    {
+        assertFalse($this->userServices->login('ade', "salah"));
     }
 }
