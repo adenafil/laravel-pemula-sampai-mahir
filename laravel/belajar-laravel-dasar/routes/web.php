@@ -160,3 +160,18 @@ Route::get('/error/manual', function () {
 Route::get('/error/validation', function () {
    throw new \App\Exceptions\ValidationException('Validation Error');
 });
+
+Route::get('/abort/400', function () {
+    return abort(400, "Ups Validation Error");
+});
+
+Route::get('/abort/401', function () {
+    return abort(401);
+});
+
+Route::get('/abort/500', function () {
+    return abort(500);
+});
+
+
+
