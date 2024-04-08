@@ -28,4 +28,21 @@ class TodolistControllerTest extends TestCase
             ->assertSeeText('2')
             ->assertSeeText('nafil');
     }
+
+    public function testAddTodoFailed()
+    {
+        $this->withSession([
+            'user' => 'ade'
+        ])->post('/todolist', [])
+            ->assertSeeText('Todo is required');
+    }
+
+    public function testAddTodoSuccess()
+    {
+        $this->withSession([
+            'user' => 'ade'
+        ])->post('/todolist', [
+            'todo' => 'ade'
+        ])->assertRedirect('/todolist');
+    }
 }
