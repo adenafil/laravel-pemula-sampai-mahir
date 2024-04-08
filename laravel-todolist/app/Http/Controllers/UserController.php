@@ -16,7 +16,7 @@ class UserController extends Controller
         $this->userServices = $userServices;
     }
 
-    public function login()
+    public function login(): Response
     {
         return response()
             ->view('user.login', [
