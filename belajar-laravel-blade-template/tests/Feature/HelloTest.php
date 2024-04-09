@@ -32,4 +32,6 @@ class HelloTest extends TestCase
             ->assertSeeText('ade');
     }
 
+
+
 }
