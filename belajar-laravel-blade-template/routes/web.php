@@ -32,3 +32,15 @@ Route::get('/world', function () {
 Route::get('/html-encoding', function (\Illuminate\Http\Request $request) {
    return view('html-encoding', ["name" => $request->input('name')]);
 });
+
+Route::get('/test', function () {
+    return \Illuminate\Support\Facades\Blade::render('hello {{$name}}', [
+        'name' => 'ade'
+    ]);
+});
+
+Route::get('/test1', function () {
+    return \Illuminate\Support\Facades\Blade::render('hello', [
+        'name' => 'ade'
+    ]);
+});
