@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Data\Person;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
 
 class CollectionTest extends TestCase
 {
@@ -32,5 +34,70 @@ class CollectionTest extends TestCase
         $result = $collection->pop();
         assertEquals(3, $result);
         $this->assertEqualsCanonicalizing([1, 2], $collection->all());
+    }
+
+    public function testMap()
+    {
+        $collection = collect([1, 2, 3]);
+        $result = $collection->map(function ($item) {
+            return $item * 2;
+        });
+
+        assertEqualsCanonicalizing([2, 4, 6], $result->all());
+    }
+
+    public function testMapInto()
+    {
+        $collection = collect(['ade']);
+        $result = $collection->mapInto(Person::class);
+        assertEquals([new Person('ade')], $result->all());
+    }
+
+    public function testMapSpread()
+    {
+        $collection = collect([
+            ['ade', 'nafil'],
+            ['nafil', 'firmansah']
+        ]);
+
+        $result = $collection->mapSpread(function ($firstName, $lastName) {
+            $fullName = $firstName . ' ' . $lastName;
+            return new Person($fullName);
+        });
+
+        assertEquals([
+            new Person('ade nafil'),
+            new Person('nafil firmansah'),
+        ], $result->all());
+    }
+
+    public function testMapToGroup()
+    {
+        $collection = collect([
+           [
+               'name' => 'ade',
+               'department' => 'it'
+           ],
+            [
+                'name' => 'nafil',
+                'department' => 'it'
+            ],
+            [
+                'name' => 'firmansah',
+                'department' => 'hr'
+            ],
+        ]);
+
+        $result = $collection->mapToGroups(function ($person) {
+           return [
+               $person['department'] => $person['name']
+           ];
+        });
+
+        assertEquals([
+            'it' => collect(['ade', 'nafil']),
+            'hr' => collect(['firmansah']),
+        ], $result->all());
+
     }
 }
