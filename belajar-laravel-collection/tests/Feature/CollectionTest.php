@@ -216,4 +216,55 @@ class CollectionTest extends TestCase
         ], $result->all());
 
     }
+
+    public function testPartitioning()
+    {
+        $collection = collect([
+            'ade' => 100,
+            'nafil' => 80,
+            'firmansah' => '90'
+        ]);
+
+        // array destructing
+        [$result1, $result2] = $collection->partition(function ($value, $key) {
+            return $value >= 90;
+        });
+
+        assertEquals([
+            'ade' => 100,
+            'firmansah' => 90,
+        ], $result1->all());
+
+        assertEquals([
+            'nafil' => 80,
+        ], $result2->all());
+    }
+
+    public function testPartitioning1()
+    {
+        $collection = collect([
+            'ade' => 100,
+            'nafil' => 80,
+            'firmansah' => '90'
+        ]);
+
+        $result = $collection->partition(function ($value, $key) {
+            return $value >= 90;
+        });
+
+        assertEquals([
+            'ade' => 100,
+            'firmansah' => 90,
+        ], $result[0]->all());
+
+        assertEquals([
+            'nafil' => 80,
+        ], $result[1]->all());
+    }
+
+    public function testAja()
+    {
+
+    }
+
 }
