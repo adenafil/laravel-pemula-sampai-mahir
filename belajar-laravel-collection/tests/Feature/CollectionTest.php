@@ -167,6 +167,16 @@ class CollectionTest extends TestCase
         assertEqualsCanonicalizing(['makan', 'minum', 'coding', 'reading'],
             $result->all()
         );
+    }
+
+    public function testStringRepresentation()
+    {
+        $collection = collect(['ade', 'nafil', 'firmansah']);
+
+        assertEqualsCanonicalizing('ade-nafil-firmansah', $collection->join('-'));
+        assertEqualsCanonicalizing('ade-nafil_firmansah', $collection->join('-', '_'));
+        assertEqualsCanonicalizing('ade, nafil and firmansah', $collection->join(', ', ' and '));
+        assertEqualsCanonicalizing('ade.nafil@firmansah', $collection->join('.', '@'));
 
     }
 }
