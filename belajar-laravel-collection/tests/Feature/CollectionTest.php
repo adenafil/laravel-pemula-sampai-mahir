@@ -133,4 +133,40 @@ class CollectionTest extends TestCase
             'country' => 'indonesia'
         ], $collection3->all());
     }
+
+    public function testCollapse()
+    {
+        $collection = collect([
+           [1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 9],
+        ]);
+
+        $result = $collection->collapse();
+
+        assertEqualsCanonicalizing([1, 2, 3, 4, 5, 6, 7, 8, 9], $result->all());
+    }
+
+    public function testFlatMap()
+    {
+        $collection = collect([
+            [
+                'name' => 'ade',
+                'hobbies' => ['makan', 'minum']
+            ],
+            [
+                'name' => 'nafil',
+                'hobbies' => ['coding', 'reading']
+            ],
+        ]);
+
+        $result = $collection->flatMap(function ($data) {
+            return $data['hobbies'];
+        });
+
+        assertEqualsCanonicalizing(['makan', 'minum', 'coding', 'reading'],
+            $result->all()
+        );
+
+    }
 }
