@@ -272,4 +272,77 @@ class CollectionTest extends TestCase
         }));
     }
 
+    public function testGrouping()
+    {
+        $collection = collect([
+            [
+                'name' => 'ade',
+                'department' => 'it'
+            ],
+            [
+                'name' => 'nafil',
+                'department' => 'it'
+            ],
+            [
+                'name' => 'firmansah',
+                'department' => 'hr'
+            ],
+        ]);
+
+        $result = $collection->groupBy('department');
+
+        self::assertEquals([
+            'it' => collect(
+                [
+                    [
+                        'name' => 'ade',
+                        'department' => 'it'
+                    ],
+                    [
+                        'name' => 'nafil',
+                        'department' => 'it'
+                    ],
+                ],
+            ),
+            'hr' => collect(
+                [
+                    [
+                        'name' => 'firmansah',
+                        'department' => 'hr'
+                    ],
+                ]
+            )
+        ], $result->all());
+
+        $result = $collection->groupBy(function ($value, $key) {
+            return strtoupper($value['department']);
+        });
+
+        self::assertEquals([
+            'IT' => collect(
+                [
+                    [
+                        'name' => 'ade',
+                        'department' => 'it'
+                    ],
+                    [
+                        'name' => 'nafil',
+                        'department' => 'it'
+                    ],
+                ],
+            ),
+            'HR' => collect(
+                [
+                    [
+                        'name' => 'firmansah',
+                        'department' => 'hr'
+                    ],
+                ]
+            )
+        ], $result->all());
+
+    }
+
+
+
 }
