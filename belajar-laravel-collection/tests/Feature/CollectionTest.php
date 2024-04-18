@@ -262,9 +262,14 @@ class CollectionTest extends TestCase
         ], $result[1]->all());
     }
 
-    public function testAja()
+    public function testTesting()
     {
+        $collection = collect(['ade', 'nafil', 'firmansah']);
 
+        self::assertTrue($collection->contains('ade'));
+        self::assertTrue($collection->contains(function ($value, $key) {
+            return $value == 'ade';
+        }));
     }
 
 }
