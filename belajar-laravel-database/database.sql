@@ -2,7 +2,7 @@ create database belajar_laravel_database;
 
 use belajar_laravel_database;
 
-create table cetagories
+create table categories
 (
     id varchar(100) not null primary key ,
     name varchar(100) not null ,
@@ -10,4 +10,4 @@ create table cetagories
     created_at timestamp
 ) engine  = innodb;
 
-desc cetagories;
+desc categories;
