@@ -468,4 +468,17 @@ class CollectionTest extends TestCase
 
         var_dump($result);
     }
+
+    public function testA()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        self::assertTrue($collection->isNotEmpty());
+        self::assertFalse($collection->isEmpty());
+        self::assertTrue($collection->contains(4));
+        self::assertFalse($collection->contains(100));
+        self::assertFalse($collection->containsOneItem());
+        self::assertTrue($collection->contains(function ($value, $key) {
+            return $value == 8;
+        }));
+    }
 }
