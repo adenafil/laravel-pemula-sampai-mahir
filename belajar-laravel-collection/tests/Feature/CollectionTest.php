@@ -454,4 +454,18 @@ class CollectionTest extends TestCase
         assertEquals(4, $result);
 
     }
+
+    public function testRandom()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $result = $collection->random();
+
+        var_dump($result);
+
+        self::assertTrue(in_array($result, [1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
+        $result = $collection->random(5);
+
+        var_dump($result);
+    }
 }
