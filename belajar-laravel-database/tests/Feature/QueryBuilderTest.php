@@ -275,4 +275,21 @@ class QueryBuilderTest extends TestCase
         });
     }
 
+    public function testOrdering()
+    {
+        $this->insertProudcts();
+
+        $collection = DB::table('products')
+            ->whereNotNull('id')
+            ->orderBy('price', 'desc')
+            ->orderBy('name')
+            ->get();
+
+        self::assertCount(2, $collection);
+        $collection->each(function ($item) {
+            Log::info(json_encode($item));
+        });
+
+    }
+
 }
