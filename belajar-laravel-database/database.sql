@@ -8,6 +8,15 @@ create table categories
     name varchar(100) not null ,
     description text,
     created_at timestamp
-) engine  = innodb;
+) engine = innodb;
 
 desc categories;
+
+create table counters(
+    id varchar(100) not null primary key ,
+    counter int not null default 0
+) engine = innodb;
+
+insert into counters(id) values ('sample');
+
+select * from counters;
