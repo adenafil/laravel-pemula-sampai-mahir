@@ -220,4 +220,19 @@ class QueryBuilderTest extends TestCase
 
     }
 
+    public function testDelete()
+    {
+        $this->insertCategories();
+
+        DB::table('categories')->where('id', '=', 'smartphone')
+            ->delete();
+
+//        DB::table('categories')->delete('smartphone');
+
+        $collection = DB::table('categories')->where('id', '=', 'name')->get();
+
+        self::assertCount(0, $collection);
+
+    }
+
 }
