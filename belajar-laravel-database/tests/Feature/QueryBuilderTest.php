@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 use function PHPUnit\Framework\assertCount;
+use function PHPUnit\Framework\assertEquals;
 
 class QueryBuilderTest extends TestCase
 {
@@ -366,6 +367,27 @@ class QueryBuilderTest extends TestCase
         $collection->each(function ($item) {
             Log::info(json_encode($item));
         });
+    }
+
+    public function testAggregate()
+    {
+        $this->insertProudcts();
+
+        $result = DB::table('products')->count();
+        assertEquals(2, $result);
+
+        $result = DB::table('products')->min('price');
+        assertEquals(18000000, $result);
+
+        $result = DB::table('products')->max('price');
+        assertEquals(20000000, $result);
+
+        $result = DB::table('products')->sum('price');
+        assertEquals(38000000, $result);
+
+        $result = DB::table('products')->avg('price');
+        assertEquals(19000000, $result);
+
     }
 
 }
