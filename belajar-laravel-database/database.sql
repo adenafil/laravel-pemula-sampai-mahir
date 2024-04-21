@@ -37,4 +37,10 @@ desc products;
 select *
 from products;
 
+drop table products;
 
+drop table categories;
+
+drop table counters;
+
+show tables ;
