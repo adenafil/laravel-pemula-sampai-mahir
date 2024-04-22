@@ -107,4 +107,16 @@ class CategoryTest extends TestCase
         self::assertEquals(10, $total);
 
     }
+
+    public function testDelete()
+    {
+        $this->seed(CategorySeeder::class);
+
+        $category = Category::query()->find('FOOD');
+        $result = $category->delete();
+        self::assertTrue($result);
+
+        $total = Category::query()->count();
+        assertEquals(0, $total);
+    }
 }
