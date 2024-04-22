@@ -7,6 +7,7 @@ use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertTrue;
 
 class CategoryTest extends TestCase
 {
@@ -48,5 +49,18 @@ class CategoryTest extends TestCase
         self::assertEquals('FOOD', $category->id);
         self::assertEquals('Food', $category->name);
         self::assertEquals('Food Category', $category->description);
+    }
+
+    public function testUpdate()
+    {
+        $this->seed(CategorySeeder::class);
+
+        $category = Category::query()->find('FOOD');
+
+        $category->name = 'Food Updated';
+
+        $result = $category->update();
+
+        assertTrue($result);
     }
 }
