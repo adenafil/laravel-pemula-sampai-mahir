@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use \Illuminate\Support\Facades\Date;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -45,6 +46,16 @@ class Customer extends Model
           'customers_likes_products',
           'customer_id',
             'product_id'
-        );
+        )->withPivot('created_at');
+    }
+
+    public function likeProductsLastWeek(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class,
+            'customers_likes_products',
+            'customer_id',
+            'product_id'
+        )->withPivot('created_at')
+            ->wherePivot('created_at', '>=', Date::now()->addDays(-7));
     }
 }
