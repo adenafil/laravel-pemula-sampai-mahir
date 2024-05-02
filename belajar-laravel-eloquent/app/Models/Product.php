@@ -33,6 +33,7 @@ class Product extends Model
             'customers_likes_products',
             'product_id',
             'customer_id'
-        )->withPivot('created_at');
+        )->withPivot('created_at')
+            ->using(Like::class);
     }
 }
