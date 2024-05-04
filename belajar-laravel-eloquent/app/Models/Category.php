@@ -21,6 +21,9 @@ class Category extends Model
         'name',
         'description',
     ];
+    protected $casts = [
+        'created_at' => 'datetime:U'
+    ];
 
     public function products(): HasMany
     {
