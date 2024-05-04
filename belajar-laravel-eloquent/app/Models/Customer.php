@@ -18,6 +18,7 @@ class Customer extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
+    protected $with = ['wallet', 'image'];
 
     public function wallet(): HasOne
     {
