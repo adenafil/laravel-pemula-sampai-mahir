@@ -3,10 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\Person;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
 
 class PersonTest extends TestCase
 {
@@ -26,7 +28,20 @@ class PersonTest extends TestCase
         assertEquals('NAFIL firmansah', $person->full_name);
         assertEquals('NAFIL', $person->first_name);
         assertEquals('firmansah', $person->last_name);
-
-
     }
+
+    public function testAttributeCasting()
+    {
+        $person = new Person();
+
+        $person->first_name = 'ade';
+        $person->last_name = 'nafil';
+        $person->save();
+
+        assertNotNull($person->created_at);
+        assertNotNull($person->updated_at);
+        self::assertInstanceOf(Carbon::class, $person->created_at);
+        self::assertInstanceOf(Carbon::class, $person->updated_at);
+    }
+
 }
