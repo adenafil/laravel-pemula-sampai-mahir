@@ -35,6 +35,7 @@ class CategoryTest extends TestCase
             $categories[] = [
                 'id' => "ID $i",
                 'name' => "Name $i",
+                'is_active' => true
             ];
         }
 
@@ -77,6 +78,7 @@ class CategoryTest extends TestCase
             $category = new Category();
             $category->id = "ID $i";
             $category->name = "Name $i";
+            $category->is_active = true;
             $category->save();
         }
 
@@ -99,6 +101,7 @@ class CategoryTest extends TestCase
             $categories[] = [
                 'id' => "ID $i",
                 'name' => "Name $i",
+                'is_active' => true
             ];
         }
 
@@ -133,6 +136,7 @@ class CategoryTest extends TestCase
             $categories[] = [
                 'id' => "ID $i",
                 'name' => "Name $i",
+                'is_active' => true
             ];
         }
 
@@ -220,7 +224,7 @@ class CategoryTest extends TestCase
         self::assertNotNull($products);
 
         $total = $products->count();
-        assertEquals(1, $total);
+        assertEquals(2, $total);
     }
 
     public function testOneToManyQuery()
@@ -263,10 +267,10 @@ class CategoryTest extends TestCase
 
         $category = Category::query()->find('FOOD');
         $products = $category->products;
-        self::assertCount(1, $products);
+        self::assertCount(2, $products);
 
         $outOfStockProducts = $category->products()->where('stock', '<=', '0')->get();
-        self::assertCount(1, $outOfStockProducts);
+        self::assertCount(2, $outOfStockProducts);
         var_dump($outOfStockProducts[0]->description);
 
     }
