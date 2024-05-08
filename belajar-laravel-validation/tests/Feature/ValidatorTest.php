@@ -76,5 +76,27 @@ class ValidatorTest extends TestCase
         }
     }
 
+    public function testValidatorMultipleRules()
+    {
+        $data = [
+            'username' => 'admin',
+            'password' => 'rahasia'
+        ];
+
+        $rules = [
+            'username' => 'required | email | max: 100',
+            'password' => ['required', 'min: 6', 'max: 20']
+        ];
+        $validator = Validator::make($data, $rules);
+
+        self::assertNotNull($validator);
+
+        $message = $validator->getMessageBag();
+
+        self::assertTrue($validator->fails());
+        Log::error($message->toJson(JSON_PRETTY_PRINT));
+
+    }
+
 
 }
