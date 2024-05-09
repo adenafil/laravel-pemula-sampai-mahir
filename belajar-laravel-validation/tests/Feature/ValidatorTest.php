@@ -149,7 +149,36 @@ class ValidatorTest extends TestCase
         ];
 
         $validator = Validator::make($data, $rules, $messages);
-        
+
+        self::assertNotNull($validator);
+
+        $message = $validator->getMessageBag();
+
+        self::assertTrue($validator->fails());
+        Log::error($message->toJson(JSON_PRETTY_PRINT));
+
+    }
+
+    public function testValidatorAdditionalValidation()
+    {
+        $data = [
+            'username' => 'ade@pzn.com',
+            'password' => 'ade@pzn.com'
+        ];
+
+        $rules = [
+            'username' => 'required | email | max: 100',
+            'password' => ['required', 'min: 6', 'max: 20']
+        ];
+        $validator = Validator::make($data, $rules);
+        $validator->after(function (\Illuminate\Validation\Validator $validator) {
+            $data = $validator->getData();
+
+            if ($data['username'] == $data['password']) {
+                $validator->errors()->add('password','password tidak boleh sama dengan username');
+            }
+        });
+
         self::assertNotNull($validator);
 
         $message = $validator->getMessageBag();
