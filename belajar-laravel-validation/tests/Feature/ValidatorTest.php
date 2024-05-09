@@ -260,4 +260,36 @@ class ValidatorTest extends TestCase
 
     }
 
+    public function testNestedArrayAndIndexedArray()
+    {
+        $data = [
+            'name' => [
+                'first' => 'ade',
+                'last' => 'firmansah'
+            ],
+            'address' => [
+                [
+                    'street' => 'jensud',
+                    'city' => 'berau',
+                    'country' => 'indonesia'
+                ],
+                [
+                    'street' => 'jensud',
+                    'city' => 'berau',
+                    'country' => 'indonesia'
+                ]
+            ],
+        ];
+
+        $rules = [
+            'name.first' => ['required', 'max:100'],
+            'name.last' => 'max:100',
+            'address.*.street' => 'max:100',
+            'address.*.city' => 'required | max:100',
+            'address.*.country' => 'required | max:100',
+        ];
+
+        $validator = Validator::make($data, $rules);
+        self::assertTrue($validator->passes());
+    }
 }
