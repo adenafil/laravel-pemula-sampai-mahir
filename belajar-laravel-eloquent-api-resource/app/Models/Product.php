@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
-    protected $table = 'product';
+    protected $table = 'products';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
     public $incrementing = true;
