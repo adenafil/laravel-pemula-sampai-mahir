@@ -22,3 +22,8 @@ Route::get('/categories/{id}', function ($id) {
    $category = \App\Models\Category::findOrFail($id);
    return new \App\Http\Resources\CategoryResource($category);
 });
+
+Route::get('/categories', function () {
+    $categories = \App\Models\Category::all();
+    return \App\Http\Resources\CategoryResource::collection($categories);
+});
